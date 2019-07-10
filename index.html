@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Daily Dash</title>
+    
+    <!--stylesheets-->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!--Materialize CDN-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+    
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-wrapper">
+                <div class="brand-logo center">My Daily Dash</div>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col s6">
+                <div class="card">
+                    <h5 class="activity" id="diet">Diet</h4>
+                    <h5 class="activity" id="self-care">Self Care</h4>
+                    <h5 class="activity" id="exercise">Exercise</h4>
+                    <h5 class="activity" id="other-care">Care for Others</h4>
+                    <h5 class="activity" id="learning">Learning</h4>
+                        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+                </div>    
+               
+            </div>
+            <div class="col s4 offset-s2 card">Calender?</div>
+            <div class="row">
+                <div class="col s4 offset-s8 card">Map?</div>
+            </div>
+        </div>
+
+    </div>
+    
+    <!--Jquery CDN-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.js" integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+    
+    <!-- Link to Moment.js -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>  
+    
+    <!--Our .js file-->
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+</body>
+</html>
