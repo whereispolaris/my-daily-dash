@@ -10,6 +10,7 @@
     padding: 20px;
 }
 
+<<<<<<< HEAD
 /*styles for congratulations message */
 #congratHeader {
     width: 250px;
@@ -23,4 +24,22 @@
 #apiMsg {
     margin: 15px 5px 5px 5px;
    }
+=======
+/* icon for closing opening message window */
+#alert_close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+#quote-of-the-day {
+    
+}
+
+
+
+>>>>>>> master
 

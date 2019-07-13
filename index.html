@@ -10,6 +10,7 @@
 
 
     <!--Jquery CDN-->
+<<<<<<< HEAD
     <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
         integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
    
@@ -17,8 +18,17 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+=======
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+>>>>>>> master
 
     <!--Materialize CDN-->
+    <!--Icons and fonts-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -41,14 +51,32 @@
         </div>
     </nav>
     <div class="container">
-
+        <!--Opening page alert box with instructions and inspirational quote (Eric)-->
+        <div class="row" id="alert_box">
+            <div class="col s12 m12">
+              <div class="card red darken-1">
+                <div class="row">
+                  <div class="col s12 m10">
+                    <div class="card-content white-text" id="opening-message-content">
+                      <p>Welcome to My Daily Dash!</p>
+                      <p>Click the button to add a task.</p>
+                      <p id="quote-of-the-day"></p>
+                    </div>
+                </div>
+                <div class="col s12 m2">
+                    <a class="material-icons" id="alert_close" aria-hidden="true">close</a>
+                </div>
+              </div>
+             </div>
+            </div>
+          </div>
         <div class="row">
             <div class="col s12 m7">
                 <!--inline styling can be removed-->
                 <div class="card">
                     <h3 id="my-board">My Board</h3>
                     <form action="#">
-                        <div class="collection">
+                        <div class="collection" id="toDoCollection">
                             <p class="collection-item">
                                 <label>
                                     <input type="checkbox" class="filled-in" />
@@ -73,6 +101,7 @@
                                     <span>Work out</span>
                                 </label>
                             </p>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -82,17 +111,8 @@
                 </div>
             </div>
         </div>
+        <a href="#add-item" class="btn modal-trigger">Add New Task</a>
         <!--inline styling can be removed-->
-        <!--removing these for now - not mvp
-        <div class="card col s4 m4 offset-m1" style="height: 150px">Capacity for the Day</div>
-        <div class="card col s4 m4 offset-m1" style="height: 150px">Points Completed</div>-->
-    
-
-
-
-
-
-
 
       <!---Congratulations message: will include Text message, API string from bored api, triggered when all items are checked -->  
       <div id="dialog" title="Congratulations!" id="congratHeader">
@@ -104,6 +124,10 @@
 
     
     </div>
+    <!-- CAPACITY / POINTS COMPLETED -->
+    <!-- <div class="card col s4 m4 offset-m1" style="height: 150px">Capacity for the Day
+    </div>
+    <div class="card col s4 m4 offset-m1" style="height: 150px">Points Completed</div> -->
 
     <!-- MODAL -->
     <div class="modal" id="add-item">
@@ -115,7 +139,7 @@
                     <label for="toDoItem">To Do Item</label>
                 </div>
                 <!-- THIS BUTTON CLOSES MODAL - DOES NOT SUBMIT ANYTHING YET -->
-                <a href="#!" class="btn modal-close">Add Item</a>
+                <button type="submit" id="add-item" class="btn modal-close">Add Item</a>
             </form>
         </div>
     </div>
