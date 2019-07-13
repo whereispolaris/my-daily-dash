@@ -41,7 +41,7 @@
                 <div class="card">
                     <h3 id="my-board">My Board</h3>
                     <form action="#">
-                        <div class="collection">
+                        <div class="collection" id="toDoCollection">
                             <p class="collection-item">
                                 <label>
                                     <input type="checkbox" class="filled-in" />
@@ -66,15 +66,18 @@
                                     <span>Work out</span>
                                 </label>
                             </p>
+                        </div>
                     </form>
                 </div>
             </div>
-            <a href="#add-item" class="btn modal-trigger">Add New Task</a>
         </div>
+        <a href="#add-item" class="btn modal-trigger">Add New Task</a>
         <!--inline styling can be removed-->
-        <div class="card col s4 m4 offset-m1" style="height: 150px">Capacity for the Day</div>
-        <div class="card col s4 m4 offset-m1" style="height: 150px">Points Completed</div>
     </div>
+    <!-- CAPACITY / POINTS COMPLETED -->
+    <!-- <div class="card col s4 m4 offset-m1" style="height: 150px">Capacity for the Day
+    </div>
+    <div class="card col s4 m4 offset-m1" style="height: 150px">Points Completed</div> -->
 
     <!-- MODAL -->
     <div class="modal" id="add-item">
@@ -86,7 +89,7 @@
                     <label for="toDoItem">To Do Item</label>
                 </div>
                 <!-- THIS BUTTON CLOSES MODAL - DOES NOT SUBMIT ANYTHING YET -->
-                <a href="#!" class="btn modal-close">Add Item</a>
+                <button type="submit" id="add-item" class="btn modal-close">Add Item</a>
             </form>
         </div>
     </div>
