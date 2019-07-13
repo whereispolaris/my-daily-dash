@@ -9,3 +9,21 @@
 .modal-window {
     padding: 20px;
 }
+
+/* icon for closing opening message window */
+#alert_close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+#quote-of-the-day {
+    
+}
+
+
+
+
