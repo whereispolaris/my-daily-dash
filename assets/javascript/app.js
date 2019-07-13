@@ -14,6 +14,7 @@ var database = firebase.database();
 console.log(database);
 
 $(document).ready(function () {
+
     // Triggers modal
     $(".modal").modal();
 
@@ -79,6 +80,20 @@ database.ref().on("child_added", function (snapshot) {
 
 
 });
+//This displays the Congratulations message
+  //  var boredIdea="";
+  var queryURL = "https://www.boredapi.com/api/activity/"
 
+  $(function() {
+      $( "#dialog" ).dialog();
 
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).then(function(response) {
 
+          var boredIdea = response.activity;
+
+          apiMsg.append(boredIdea);
+      });
+    });
