@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Daily Dash</title>
-    
+
     <!--stylesheets-->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -19,38 +20,68 @@
     <!-- Firebase-->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
-    
+
 </head>
+
 <body>
+    <nav>
+        <div class="nav-wrapper">
+            <div class="brand-logo center">My Daily Dash</div>
+        </div>
+    </nav>
     <div class="container">
-        <nav>
-            <div class="nav-wrapper">
-                <div class="brand-logo center">My Daily Dash</div>
-            </div>
-        </nav>
+
         <div class="row">
             <div class="col s12 m7">
-                <a class="waves-effect waves-light btn modal-trigger" href="#modal1" id="add-task">Modal</a>
                 <!--inline styling can be removed-->
-                <div class="card" style="height: 400px">
+                <div class="card">
                     <h3 id="my-board">My Board</h3>
-                </div>    
+                    <form action="#">
+                        <div class="collection">
+                            <p class="collection-item">
+                                <label>
+                                    <input type="checkbox" class="filled-in" />
+                                    <span>Make breakfast for kids</span>
+                                </label>
+                            </p>
+                            <p class="collection-item">
+                                <label>
+                                    <input type="checkbox" class="filled-in" />
+                                    <span>Walk dog</span>
+                                </label>
+                            </p>
+                            <p class="collection-item">
+                                <label>
+                                    <input type="checkbox" class="filled-in" />
+                                    <span>Read emails</span>
+                                </label>
+                            </p>
+                            <p class="collection-item">
+                                <label>
+                                    <input type="checkbox" class="filled-in" />
+                                    <span>Work out</span>
+                                </label>
+                            </p>
+                    </form>
+                </div>
             </div>
-            <!--inline styling can be removed-->
-            <div class="card col s4 m4 offset-m1" style="height: 150px">Capacity for the Day</div>
-            <div class="card col s4 m4 offset-m1" style="height: 150px">Points Completed</div>
-            </div>
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal1" id="add-task">Modal</a>
         </div>
-
+        <!--inline styling can be removed-->
+        <div class="card col s4 m4 offset-m1" style="height: 150px">Capacity for the Day</div>
+        <div class="card col s4 m4 offset-m1" style="height: 150px">Points Completed</div>
     </div>
-    
+
+
     <!--Jquery CDN-->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.js" integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
+        integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+
     <!-- Link to Moment.js -->
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>  
-    
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
     <!--Our .js file-->
     <script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>
+
 </html>
