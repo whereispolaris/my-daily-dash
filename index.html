@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <!--Jquery CDN-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
+        integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+
     <!--Materialize CDN-->
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -65,17 +69,27 @@
                     </form>
                 </div>
             </div>
-            <a class="waves-effect waves-light btn modal-trigger" href="#modal1" id="add-task">Modal</a>
+            <a href="#add-item" class="btn modal-trigger">Add New Task</a>
         </div>
         <!--inline styling can be removed-->
         <div class="card col s4 m4 offset-m1" style="height: 150px">Capacity for the Day</div>
         <div class="card col s4 m4 offset-m1" style="height: 150px">Points Completed</div>
     </div>
 
-
-    <!--Jquery CDN-->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
-        integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+    <!-- MODAL -->
+    <div class="modal" id="add-item">
+        <div class="row modal-window">
+            <h5 class="red-text">Add New Task</h5>
+            <form>
+                <div class="input-field col s12">
+                    <input id="toDoItem" type="text" class="validate">
+                    <label for="toDoItem">To Do Item</label>
+                </div>
+                <!-- THIS BUTTON CLOSES MODAL - DOES NOT SUBMIT ANYTHING YET -->
+                <a href="#!" class="btn modal-close">Add Item</a>
+            </form>
+        </div>
+    </div>
 
     <!-- Link to Moment.js -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
