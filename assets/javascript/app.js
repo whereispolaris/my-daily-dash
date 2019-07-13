@@ -11,13 +11,22 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
-console.log(database);
+console.log(firebase.auth());
 
 // Firebase Authentication
-
+function googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(
+        result => {
+            const user = result.user
+            $("#opening-message-content").preppend("Hello, " + user.DisplayName + "!");
+            console.log(user);
+        })
+}
 
 
 $(document).ready(function () {
+
     // Triggers modal
     $(".modal").modal();
 
