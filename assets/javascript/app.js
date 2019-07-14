@@ -46,7 +46,7 @@ $('#alert_close').click(function(){
         // Transfer content to HTML
         $("#quote-of-the-day").text('"' + response[0] + '"');
     })
-});
+
 
 $("#add-item").on("submit", function (event) {
     // prevent the page from refreshing
@@ -80,22 +80,26 @@ database.ref().on("child_added", function (snapshot) {
 
 
 });
-//This displays the Congratulations message
-  //  var boredIdea="";
-  var queryURL = "https://www.boredapi.com/api/activity/"
 
-  $(function() {
-      $( "#dialog" ).dialog();
+//If all tasks are checked complete, then run dialog function
+//$(".filled-in").change(function(){
+ //   if ($('.filled-in:checked').length == $('.filled-in').length) {
+  
+        //This displays the Congratulations message
+        var queryURL = "https://www.boredapi.com/api/activity/"
 
-      $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).then(function(response) {
+        $(function() {
+            $( "#dialog" ).dialog();
 
-          var boredIdea = response.activity;
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+                }).then(function(response) {
 
-          apiMsg.append(boredIdea +".");
-      });
-    });
+                var boredIdea = response.activity;
 
-    //("Rating: " + rating)
+                apiMsg.append(boredIdea +".");
+            });
+            });
+   // });
+});
