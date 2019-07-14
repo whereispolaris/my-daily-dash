@@ -20,8 +20,23 @@
     cursor: pointer;
 }
 
+#ron-swanson {
+    padding-top: .3%;
+}
+
 #quote-of-the-day {
-    
+    padding-top: 2%;
+    font-style: italic;
+    font-size: larger;
+}
+
+.welcome-message {
+    text-align: center;
+    font-size: 3vw;
+}
+
+#line-one {
+    padding-bottom: 2%;
 }
 
 /*START styles for congratulations message */

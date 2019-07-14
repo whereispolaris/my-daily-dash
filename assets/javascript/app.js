@@ -94,7 +94,7 @@ database.ref().on("child_added", function (snapshot) {
  //   if ($('.filled-in:checked').length == $('.filled-in').length) {
   
         //This displays the Congratulations message
-        var queryURL = "https://www.boredapi.com/api/activity/"
+     /*   var queryURL = "https://www.boredapi.com/api/activity/"
 
         $(function() {
             $( "#dialog" ).dialog();
@@ -108,5 +108,5 @@ database.ref().on("child_added", function (snapshot) {
 
                 apiMsg.append(boredIdea +".");
             });
-            });
+            }); */
    // });
