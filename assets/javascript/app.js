@@ -35,21 +35,29 @@ function googleLogin() {
         });
     });
 
+    // Grab user tasks from firebase and add them to page.
     database.ref(userID).on("child_added", function (snapshot) {
-        console.log(snapshot.val().task);
+        console.log(snapshot.key)
         // Create Materialize collection item
         var collectionItem = $("<p>");
         collectionItem.addClass("collection-item");
-        collectionLabel = $("<label>");
-        checkBox = $("<input>");
-        checkBox.attr({
-            type: "checkbox",
-            class: "filled-in"
-        });
-        taskSpan = $("<span>");
+        var taskSpan = $("<span>");
         taskSpan.text(snapshot.val().task);
-        collectionLabel.append(checkBox, taskSpan);
-        collectionItem.append(collectionLabel);
+        var deleteBtn = $("<button>");
+        deleteBtn.text("Delete");
+        deleteBtn.attr({
+            class: "btn-small red right",
+            id: snapshot.key
+        });
+        var doneBtn = $("<button>");
+        doneBtn.text("Done");
+        doneBtn.attr({
+            class: "btn-small right",
+            id: snapshot.key
+        });
+
+
+        collectionItem.append(taskSpan, deleteBtn, doneBtn);
         // Add Materialize collection item to list
         $("#toDoCollection").append(collectionItem);
     });
@@ -89,8 +97,6 @@ $(document).ready(function () {
             // Transfer content to HTML
             $("#quote-of-the-day").text('"' + response[0] + '"');
         });
-
-
 
 });
 
