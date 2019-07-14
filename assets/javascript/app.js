@@ -11,6 +11,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
+var userID = firebase.auth().currentUser.uid;
 console.log(firebase.auth());
 
 // Firebase Authentication
@@ -19,9 +20,8 @@ function googleLogin() {
     firebase.auth().signInWithPopup(provider).then(
         result => {
             const user = result.user
-            $("#opening-message-content").preppend("Hello, " + user.DisplayName + "!");
-            console.log(user);
-        })
+            $("#opening-message-content").prepend("Hello, " + user.DisplayName + "!");
+        });
 }
 
 
@@ -65,12 +65,12 @@ $("#add-item").on("submit", function (event) {
     // Gets the value from the task input
     var task = $("#toDoItem").val().trim();
 
-    database.ref().push({
+    database.ref(userID).push({
         task: task
     });
 });
 
-database.ref().on("child_added", function (snapshot) {
+database.ref(userID).on("child_added", function (snapshot) {
     console.log(snapshot.val().task);
     // Create Materialize collection item
     var collectionItem = $("<p>");
@@ -92,21 +92,21 @@ database.ref().on("child_added", function (snapshot) {
 //If all tasks are checked complete, then run dialog function
 //$(".filled-in").change(function(){
  //   if ($('.filled-in:checked').length == $('.filled-in').length) {
-  
+
         //This displays the Congratulations message
-     /*   var queryURL = "https://www.boredapi.com/api/activity/"
+/*   var queryURL = "https://www.boredapi.com/api/activity/"
 
-        $(function() {
-            $( "#dialog" ).dialog();
+   $(function() {
+       $( "#dialog" ).dialog();
 
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-                }).then(function(response) {
+       $.ajax({
+           url: queryURL,
+           method: "GET"
+           }).then(function(response) {
 
-                var boredIdea = response.activity;
+           var boredIdea = response.activity;
 
-                apiMsg.append(boredIdea +".");
-            });
-            }); */
+           apiMsg.append(boredIdea +".");
+       });
+       }); */
    // });
