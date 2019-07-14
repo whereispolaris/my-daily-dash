@@ -52,12 +52,12 @@ $(document).ready(function () {
             console.log(queryURLInspire);
 
             // Log the quote
-            console.log(response[0]);
-
+            console.log(response[0];
             // Transfer content to HTML
             $("#quote-of-the-day").text('"' + response[0] + '"');
         });
 });
+
 
 $("#add-item").on("submit", function (event) {
     // prevent the page from refreshing
@@ -88,20 +88,26 @@ database.ref().on("child_added", function (snapshot) {
     // Add Materialize collection item to list
     $("#toDoCollection").append(collectionItem);
 });
-//This displays the Congratulations message
-  //  var boredIdea="";
-  var queryURL = "https://www.boredapi.com/api/activity/"
 
-  $(function() {
-      $( "#dialog" ).dialog();
+//If all tasks are checked complete, then run dialog function
+//$(".filled-in").change(function(){
+ //   if ($('.filled-in:checked').length == $('.filled-in').length) {
+  
+        //This displays the Congratulations message
+        var queryURL = "https://www.boredapi.com/api/activity/"
 
-      $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).then(function(response) {
+        $(function() {
+            $( "#dialog" ).dialog();
 
-          var boredIdea = response.activity;
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+                }).then(function(response) {
 
-          apiMsg.append(boredIdea);
-      });
-    });
+                var boredIdea = response.activity;
+
+                apiMsg.append(boredIdea +".");
+            });
+            });
+   // });
+});
