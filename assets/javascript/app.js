@@ -9,7 +9,6 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-var userID = "/";
 var database = firebase.database();
 console.log(firebase.auth());
 
@@ -21,75 +20,79 @@ function googleLogin() {
             const user = result.user
             $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
         });
-    userID = firebase.auth().currentUser.uid;
 
-}
+    var userID = firebase.auth().currentUser.uid;
 
+    // GOOGLE TEST START
+    $("#add-item").on("submit", function (event) {
+        // prevent the page from refreshing
+        event.preventDefault();
+        // Gets the value from the task input
+        var task = $("#toDoItem").val().trim();
 
-
-$(document).ready(function () {
-
-    // Triggers modal
-    $(".modal").modal();
-
-    // Code for opening page alert box
-    $('#alert_close').click(function () {
-        $("#alert_box").fadeOut("slow", function () {
+        database.ref(userID).push({
+            task: task
         });
     });
 
-
-    // Here is the URL to query the database
-    var queryURLInspire = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
-
-    //Here we run the AJAX call to get the inspirational quote API
-    $.ajax({
-        url: queryURLInspire,
-        method: "GET"
-    })
-        // Store all of the retrieved data inside of an object called response
-        .then(function (response) {
-
-            //Log the queryURLInspire
-            console.log(queryURLInspire);
-
-            // Log the quote
-            console.log(response[0]);
-            // Transfer content to HTML
-            $("#quote-of-the-day").text('"' + response[0] + '"');
+    database.ref(userID).on("child_added", function (snapshot) {
+        console.log(snapshot.val().task);
+        // Create Materialize collection item
+        var collectionItem = $("<p>");
+        collectionItem.addClass("collection-item");
+        collectionLabel = $("<label>");
+        checkBox = $("<input>");
+        checkBox.attr({
+            type: "checkbox",
+            class: "filled-in"
         });
-});
-
-
-$("#add-item").on("submit", function (event) {
-    // prevent the page from refreshing
-    event.preventDefault();
-    // Gets the value from the task input
-    var task = $("#toDoItem").val().trim();
-
-    database.ref(userID).push({
-        task: task
+        taskSpan = $("<span>");
+        taskSpan.text(snapshot.val().task);
+        collectionLabel.append(checkBox, taskSpan);
+        collectionItem.append(collectionLabel);
+        // Add Materialize collection item to list
+        $("#toDoCollection").append(collectionItem);
     });
-});
+    // GOOGLE TEST END
 
-database.ref(userID).on("child_added", function (snapshot) {
-    console.log(snapshot.val().task);
-    // Create Materialize collection item
-    var collectionItem = $("<p>");
-    collectionItem.addClass("collection-item");
-    collectionLabel = $("<label>");
-    checkBox = $("<input>");
-    checkBox.attr({
-        type: "checkbox",
-        class: "filled-in"
+
+
+    $(document).ready(function () {
+
+        // Triggers modal
+        $(".modal").modal();
+
+        // Code for opening page alert box
+        $('#alert_close').click(function () {
+            $("#alert_box").fadeOut("slow", function () {
+            });
+        });
+
+
+        // Here is the URL to query the database
+        var queryURLInspire = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
+
+        //Here we run the AJAX call to get the inspirational quote API
+        $.ajax({
+            url: queryURLInspire,
+            method: "GET"
+        })
+            // Store all of the retrieved data inside of an object called response
+            .then(function (response) {
+
+                //Log the queryURLInspire
+                console.log(queryURLInspire);
+
+                // Log the quote
+                console.log(response[0]);
+                // Transfer content to HTML
+                $("#quote-of-the-day").text('"' + response[0] + '"');
+            });
+
+
+
     });
-    taskSpan = $("<span>");
-    taskSpan.text(snapshot.val().task);
-    collectionLabel.append(checkBox, taskSpan);
-    collectionItem.append(collectionLabel);
-    // Add Materialize collection item to list
-    $("#toDoCollection").append(collectionItem);
-});
+
 
 //If all tasks are checked complete, then run dialog function
 //$(".filled-in").change(function(){
