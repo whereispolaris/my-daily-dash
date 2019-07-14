@@ -9,9 +9,8 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
+var userID = "/";
 var database = firebase.database();
-var userID = firebase.auth().currentUser.uid;
 console.log(firebase.auth());
 
 // Firebase Authentication
@@ -20,9 +19,12 @@ function googleLogin() {
     firebase.auth().signInWithPopup(provider).then(
         result => {
             const user = result.user
-            $("#opening-message-content").prepend("Hello, " + user.DisplayName + "!");
+            $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
         });
+    userID = firebase.auth().currentUser.uid;
+
 }
+
 
 
 $(document).ready(function () {
