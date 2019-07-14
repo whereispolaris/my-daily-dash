@@ -23,7 +23,7 @@ function googleLogin() {
 
     var userID = firebase.auth().currentUser.uid;
 
-    // GOOGLE TEST START
+    // Google auth start
     $("#add-item").on("submit", function (event) {
         // prevent the page from refreshing
         event.preventDefault();
@@ -53,45 +53,46 @@ function googleLogin() {
         // Add Materialize collection item to list
         $("#toDoCollection").append(collectionItem);
     });
-    // GOOGLE TEST END
+    // Google Auth Test End
+}
 
 
 
-    $(document).ready(function () {
+$(document).ready(function () {
 
-        // Triggers modal
-        $(".modal").modal();
+    // Triggers modal
+    $(".modal").modal();
 
-        // Code for opening page alert box
-        $('#alert_close').click(function () {
-            $("#alert_box").fadeOut("slow", function () {
-            });
+    // Code for opening page alert box
+    $('#alert_close').click(function () {
+        $("#alert_box").fadeOut("slow", function () {
+        });
+    });
+
+
+    // Here is the URL to query the database
+    var queryURLInspire = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
+
+    //Here we run the AJAX call to get the inspirational quote API
+    $.ajax({
+        url: queryURLInspire,
+        method: "GET"
+    })
+        // Store all of the retrieved data inside of an object called response
+        .then(function (response) {
+
+            //Log the queryURLInspire
+            console.log(queryURLInspire);
+
+            // Log the quote
+            console.log(response[0]);
+            // Transfer content to HTML
+            $("#quote-of-the-day").text('"' + response[0] + '"');
         });
 
 
-        // Here is the URL to query the database
-        var queryURLInspire = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
 
-        //Here we run the AJAX call to get the inspirational quote API
-        $.ajax({
-            url: queryURLInspire,
-            method: "GET"
-        })
-            // Store all of the retrieved data inside of an object called response
-            .then(function (response) {
-
-                //Log the queryURLInspire
-                console.log(queryURLInspire);
-
-                // Log the quote
-                console.log(response[0]);
-                // Transfer content to HTML
-                $("#quote-of-the-day").text('"' + response[0] + '"');
-            });
-
-
-
-    });
+});
 
 
 //If all tasks are checked complete, then run dialog function
