@@ -88,6 +88,20 @@ database.ref().on("child_added", function (snapshot) {
     // Add Materialize collection item to list
     $("#toDoCollection").append(collectionItem);
 });
+//This displays the Congratulations message
+  //  var boredIdea="";
+  var queryURL = "https://www.boredapi.com/api/activity/"
 
+  $(function() {
+      $( "#dialog" ).dialog();
 
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).then(function(response) {
 
+          var boredIdea = response.activity;
+
+          apiMsg.append(boredIdea);
+      });
+    });

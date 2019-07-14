@@ -10,6 +10,21 @@
     padding: 20px;
 }
 
+<<<<<<< HEAD
+/*styles for congratulations message */
+#congratHeader {
+    width: 250px;
+    height: 250px;
+}
+
+#congratMsg {
+ margin: 5px 5px 5px 5px;
+}
+
+#apiMsg {
+    margin: 15px 5px 5px 5px;
+   }
+=======
 /* icon for closing opening message window */
 #alert_close{
     position: absolute;
@@ -26,4 +41,5 @@
 
 
 
+>>>>>>> master
 
