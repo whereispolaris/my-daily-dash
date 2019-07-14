@@ -11,41 +11,52 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
-console.log(database);
+console.log(firebase.auth());
+
+// Firebase Authentication
+function googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(
+        result => {
+            const user = result.user
+            $("#opening-message-content").preppend("Hello, " + user.DisplayName + "!");
+            console.log(user);
+        })
+}
+
 
 $(document).ready(function () {
 
     // Triggers modal
     $(".modal").modal();
 
-// Code for opening page alert box
-$('#alert_close').click(function(){
-    $( "#alert_box" ).fadeOut( "slow", function() {
+    // Code for opening page alert box
+    $('#alert_close').click(function () {
+        $("#alert_box").fadeOut("slow", function () {
+        });
     });
-  });
 
 
-  // Here is the URL to query the database
-  var queryURLInspire = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
+    // Here is the URL to query the database
+    var queryURLInspire = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
 
-  //Here we run the AJAX call to get the inspirational quote API
-  $.ajax({
-      url: queryURLInspire,
-      method: "GET"
-  })
-
-  // Store all of the retrieved data inside of an object called response
-    .then(function(response){
-        
-        //Log the queryURLInspire
-        console.log(queryURLInspire);
-
-        // Log the quote
-        console.log(response[0]);
-
-        // Transfer content to HTML
-        $("#quote-of-the-day").text('"' + response[0] + '"');
+    //Here we run the AJAX call to get the inspirational quote API
+    $.ajax({
+        url: queryURLInspire,
+        method: "GET"
     })
+        // Store all of the retrieved data inside of an object called response
+        .then(function (response) {
+
+            //Log the queryURLInspire
+            console.log(queryURLInspire);
+
+            // Log the quote
+            console.log(response[0];
+            // Transfer content to HTML
+            $("#quote-of-the-day").text('"' + response[0] + '"');
+        });
+});
 
 
 $("#add-item").on("submit", function (event) {
@@ -57,7 +68,6 @@ $("#add-item").on("submit", function (event) {
     database.ref().push({
         task: task
     });
-
 });
 
 database.ref().on("child_added", function (snapshot) {
@@ -77,8 +87,6 @@ database.ref().on("child_added", function (snapshot) {
     collectionItem.append(collectionLabel);
     // Add Materialize collection item to list
     $("#toDoCollection").append(collectionItem);
-
-
 });
 
 //If all tasks are checked complete, then run dialog function
