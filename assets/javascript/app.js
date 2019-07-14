@@ -52,7 +52,7 @@ $(document).ready(function () {
             console.log(queryURLInspire);
 
             // Log the quote
-            console.log(response[0];
+            console.log(response[0]);
             // Transfer content to HTML
             $("#quote-of-the-day").text('"' + response[0] + '"');
         });
@@ -110,4 +110,3 @@ database.ref().on("child_added", function (snapshot) {
             });
             });
    // });
-});
