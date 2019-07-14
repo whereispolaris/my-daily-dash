@@ -9,7 +9,6 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-var userID = "/";
 var database = firebase.database();
 console.log(firebase.auth());
 
@@ -21,8 +20,40 @@ function googleLogin() {
             const user = result.user
             $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
         });
-    userID = firebase.auth().currentUser.uid;
 
+    var userID = firebase.auth().currentUser.uid;
+
+    // Google auth start
+    $("#add-item").on("submit", function (event) {
+        // prevent the page from refreshing
+        event.preventDefault();
+        // Gets the value from the task input
+        var task = $("#toDoItem").val().trim();
+
+        database.ref(userID).push({
+            task: task
+        });
+    });
+
+    database.ref(userID).on("child_added", function (snapshot) {
+        console.log(snapshot.val().task);
+        // Create Materialize collection item
+        var collectionItem = $("<p>");
+        collectionItem.addClass("collection-item");
+        collectionLabel = $("<label>");
+        checkBox = $("<input>");
+        checkBox.attr({
+            type: "checkbox",
+            class: "filled-in"
+        });
+        taskSpan = $("<span>");
+        taskSpan.text(snapshot.val().task);
+        collectionLabel.append(checkBox, taskSpan);
+        collectionItem.append(collectionLabel);
+        // Add Materialize collection item to list
+        $("#toDoCollection").append(collectionItem);
+    });
+    // Google Auth Test End
 }
 
 
@@ -58,38 +89,11 @@ $(document).ready(function () {
             // Transfer content to HTML
             $("#quote-of-the-day").text('"' + response[0] + '"');
         });
+
+
+
 });
 
-
-$("#add-item").on("submit", function (event) {
-    // prevent the page from refreshing
-    event.preventDefault();
-    // Gets the value from the task input
-    var task = $("#toDoItem").val().trim();
-
-    database.ref(userID).push({
-        task: task
-    });
-});
-
-database.ref(userID).on("child_added", function (snapshot) {
-    console.log(snapshot.val().task);
-    // Create Materialize collection item
-    var collectionItem = $("<p>");
-    collectionItem.addClass("collection-item");
-    collectionLabel = $("<label>");
-    checkBox = $("<input>");
-    checkBox.attr({
-        type: "checkbox",
-        class: "filled-in"
-    });
-    taskSpan = $("<span>");
-    taskSpan.text(snapshot.val().task);
-    collectionLabel.append(checkBox, taskSpan);
-    collectionItem.append(collectionLabel);
-    // Add Materialize collection item to list
-    $("#toDoCollection").append(collectionItem);
-});
 
 //If all tasks are checked complete, then run dialog function
 //$(".filled-in").change(function(){
