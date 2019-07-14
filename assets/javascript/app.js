@@ -94,6 +94,8 @@ database.ref().on("child_added", function (snapshot) {
 
           var boredIdea = response.activity;
 
-          apiMsg.append(boredIdea);
+          apiMsg.append(boredIdea +".");
       });
     });
+
+    //("Rating: " + rating)

@@ -30,8 +30,8 @@
     height: 250px;
 }
 
-#congratMsg {
- margin: 5px 5px 5px 5px;
+.congratMsg {
+ margin: 15px 5px 5px 5px;
 }
 
 #apiMsg {
