@@ -14,35 +14,39 @@ console.log(firebase.auth());
 
 // Firebase Authentication
 function googleLogin() {
+    // This tells firebase we're using Google as the authentication method. 
     const provider = new firebase.auth.GoogleAuthProvider();
+    // This is the sign-in method we want to use (pop up method)
     firebase.auth().signInWithPopup(provider).then(
         result => {
             const user = result.user
             $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
+
+            // For the tasks not showing up right away, we might need to do something here.  
         });
 
+    // Store firebase authentication method into variable
     var userID = firebase.auth().currentUser.uid;
 
-    // Google auth start
+    // Add task to firebase 
     $("#add-item").on("submit", function (event) {
-        
         // prevent the page from refreshing
         event.preventDefault();
 
-
         // Gets the value from the task input
         var task = $("#toDoItem").val().trim();
+        // Pushes task into database 'collection' associated with user (userID)
         database.ref(userID).push({
             task: task
             });
         //clears the form field after user clicks Add item
         document.getElementById('toDoItem').value = '';
- 
+
     });
 
     // Grab user tasks from firebase and add them to page.
     database.ref(userID).on("child_added", function (snapshot) {
-        console.log(snapshot.key)
+        console.log("snapshot.key: " + snapshot.key);
         // Create Materialize collection item
         var collectionItem = $("<p>");
         collectionItem.addClass("collection-item");
@@ -69,8 +73,6 @@ function googleLogin() {
     // Google Auth Test End
 }
 
-
-
 $(document).ready(function () {
 
     // Triggers modal
@@ -81,7 +83,6 @@ $(document).ready(function () {
         $("#alert_box").fadeOut("slow", function () {
         });
     });
-
 
     // Here is the URL to query the database
     var queryURLInspire = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
@@ -102,9 +103,7 @@ $(document).ready(function () {
             // Transfer content to HTML
             $("#quote-of-the-day").text('"' + response[0] + '"');
         });
-
 });
-
 
 //If all tasks are checked complete, then run dialog function
 //$(".filled-in").change(function(){
