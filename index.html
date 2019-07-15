@@ -54,8 +54,8 @@
                     <div class="row">
                         <div class="col s12 m12">
                             <div class="card-content white-text" id="opening-message-content">
-                                <p class="welcome-message" id="line-one">Welcome to My Daily Dash!</p>
-                                <p class="welcome-message">Click the button to add a task.</p>
+                                <p class="welcome-message" id="line-one">Welcome to Your Daily Dashboard!</p>
+                                <p class="welcome-subHeader">Login with Google then start adding your tasks for the day.</p>
                                 <p id="quote-of-the-day"></p>
                                 <p id="ron-swanson">-Ron Swanson</p>
                             </div>
@@ -71,7 +71,7 @@
             <div class="col s12 m7">
                 <!--inline styling can be removed-->
                 <div class="card">
-                    <h3 id="my-board">My Board</h3>
+                    <h3 id="my-board">My To Do List</h3>
                     <form action="#">
                         <div class="collection" id="toDoCollection">
                             <p class="collection-item">
@@ -113,7 +113,7 @@
 
             <div class="row">
                 <div class="col s12 m7">
-                    <a href="#add-item" class="btn modal-trigger">Add New Task</a>
+                    <a href="#add-item" class="btn modal-trigger">Add Task</a>
                 </div>
             </div>
         </div>
@@ -140,11 +140,12 @@
             <h5 class="red-text">Add New Task</h5>
             <form>
                 <div class="input-field col s12">
-                    <input id="toDoItem" type="text" class="validate">
+                    <input id="toDoItem" type="text" class="validate" required>
                     <label for="toDoItem">To Do Item</label>
+    <!--placeholder for form validation <span class="helper-text"></span>--> 
                 </div>
-                <!-- THIS BUTTON CLOSES MODAL - DOES NOT SUBMIT ANYTHING YET -->
-                <button type="submit" id="add-item" class="btn modal-close">Add Item</a>
+                <!-- THIS BUTTON Submits a to do item -->
+                <button type="submit" id="add-item" class="btn modal-close" >Add Task</a>
             </form>
         </div>
     </div>
