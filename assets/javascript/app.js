@@ -14,11 +14,15 @@ console.log(firebase.auth());
 
 // Firebase Authentication
 function googleLogin() {
+    // This tells firebase we're using Google as the authentication method. 
     const provider = new firebase.auth.GoogleAuthProvider();
+    // This is the sign-in method we want to use (pop up method)
     firebase.auth().signInWithPopup(provider).then(
         result => {
             const user = result.user
             $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
+
+            // For the tasks not showing up right away, we might need to do something here.  
         });
 
     // Store firebase authentication method into variable
