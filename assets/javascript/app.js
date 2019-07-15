@@ -25,14 +25,19 @@ function googleLogin() {
 
     // Google auth start
     $("#add-item").on("submit", function (event) {
+        
         // prevent the page from refreshing
         event.preventDefault();
+
+
         // Gets the value from the task input
         var task = $("#toDoItem").val().trim();
-
         database.ref(userID).push({
             task: task
-        });
+            });
+        //clears the form field after user clicks Add item
+        document.getElementById('toDoItem').value = '';
+ 
     });
 
     // Grab user tasks from firebase and add them to page.
