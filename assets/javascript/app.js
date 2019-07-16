@@ -35,9 +35,12 @@ function googleLogin() {
 
         // Gets the value from the task input
         var task = $("#toDoItem").val().trim();
+        var status = "toDo";
+
         // Pushes task into database 'collection' associated with user (userID)
         database.ref(userID).push({
-            task: task
+            task: task,
+            status: status
             });
         //clears the form field after user clicks Add item
         document.getElementById('toDoItem').value = '';
@@ -64,6 +67,12 @@ function googleLogin() {
             class: "btn-small right",
             id: snapshot.key
         });
+
+    $("doneBtn").on("click", function(){
+        database.ref(userID).push({
+            status: done,
+                });
+          });
 
 
         collectionItem.append(taskSpan, deleteBtn, doneBtn);
@@ -106,8 +115,9 @@ $(document).ready(function () {
 });
 
 //If all tasks are checked complete, then run dialog function
-//$(".filled-in").change(function(){
- //   if ($('.filled-in:checked').length == $('.filled-in').length) {
+// document.getElementById("myBtn").addEventListener("click", function() {
+ // alert("Hello World!");
+// });
 
         //This displays the Congratulations message
 /*   var queryURL = "https://www.boredapi.com/api/activity/"
