@@ -13,10 +13,22 @@ var firebaseConfig = {
 // =============
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
+var userID;
+
 
 // FUNCTIONS
 // =============
-
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        // User is signed in.
+        userID = firebase.auth().currentUser.uid;
+        console.log(userID);
+        
+    } else {
+        // No user is signed in.
+        console.log("you need to log in");
+    }
+});
 
 // Firebase Authentication
 function googleLogin() {
