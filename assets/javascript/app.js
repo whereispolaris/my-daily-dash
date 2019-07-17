@@ -49,12 +49,15 @@ function googleLogin() {
 
     // Grab user tasks from firebase and add them to page.
     database.ref(userID).on("child_added", function (snapshot) {
+
+
+
         console.log("snapshot.key: " + snapshot.key);
         // Create Materialize collection item
         var collectionItem = $("<p>");
         collectionItem.addClass("collection-item");
-        //(Eric) add unique ID to "p" that matches db
-        collectionItem.attr("id", userID + "/" + snapshot.key)
+        //(Eric) add unique ID to "p" that matches db; may remove
+        collectionItem.attr("data-", userID + "/" + snapshot.key);
         var taskSpan = $("<span>");
         taskSpan.text(snapshot.val().task);
         var deleteBtn = $("<button>");
@@ -63,28 +66,35 @@ function googleLogin() {
             class: "btn-small red right",
             id: snapshot.key
         });
-        var doneBtn = $("<button>");
-        doneBtn.text("Done");
-        doneBtn.attr({
-            class: "btn-small right done",
-            id: snapshot.key,
-            "data-done": userID + "/" + snapshot.key
-        });
 
-        var done = "done";
+        if (snapshot.val().status === "done") {
 
-        // done button click event
-        $(document).on("click", ".done", function () {
-            database.ref($(this).data("done")).update({
-                status: done,
+            $("#completed-tasks").append(taskSpan, deleteBtn);
+        } else {
+
+            var doneBtn = $("<button>");
+            doneBtn.text("Done");
+            doneBtn.attr({
+                class: "btn-small right done",
+                id: snapshot.key,
+                "data-done": userID + "/" + snapshot.key
+
             });
 
-        });
+            var done = "done";
+
+            // done button click event
+            $(document).on("click", ".done", function () {
+                database.ref($(this).data("done")).update({
+                    status: done,
+                });
+            });
+            collectionItem.append(taskSpan, deleteBtn, doneBtn);
+            // Add Materialize collection item to list
+            $("#toDoCollection").append(collectionItem);
+        }
 
 
-        collectionItem.append(taskSpan, deleteBtn, doneBtn);
-        // Add Materialize collection item to list
-        $("#toDoCollection").append(collectionItem);
     });
     // Google Auth Test End
 }
