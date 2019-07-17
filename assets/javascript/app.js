@@ -8,13 +8,13 @@ var firebaseConfig = {
     appId: "1:740454389985:web:a93be9c7139cf559"
 };
 // Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 // VARIABLES
 // =============
-firebase.initializeApp(firebaseConfig);
+
 var database = firebase.database();
 var userID;
-
 
 // FUNCTIONS
 // =============
@@ -23,29 +23,15 @@ firebase.auth().onAuthStateChanged(function (user) {
         // User is signed in.
         userID = firebase.auth().currentUser.uid;
         console.log(userID);
-        
+        pushTask(userID);
+        renderTasks(userID); 
     } else {
         // No user is signed in.
         console.log("you need to log in");
     }
 });
 
-// Firebase Authentication
-function googleLogin() {
-    // This tells firebase we're using Google as the authentication method. 
-    const provider = new firebase.auth.GoogleAuthProvider();
-    // This is the sign-in method we want to use (pop up method)
-    firebase.auth().signInWithPopup(provider).then(
-        result => {
-            const user = result.user
-            $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
-
-            // For the tasks not showing up right away, we might need to do something here.  
-        });
-
-    // Store firebase authentication method into variable
-    var userID = firebase.auth().currentUser.uid;
-
+function pushTask(id) {
     // Add task to firebase 
     $("#add-item").on("submit", function (event) {
         // prevent the page from refreshing
@@ -56,7 +42,7 @@ function googleLogin() {
         var status = "toDo";
 
         // Pushes task into database 'collection' associated with user (userID)
-        database.ref(userID).push({
+        database.ref(id).push({
             task: task,
             status: status
         });
@@ -64,15 +50,19 @@ function googleLogin() {
         document.getElementById('toDoItem').value = '';
 
     });
+}
 
+function renderTasks(id) {
+    $("#toDoCollection").empty();
+    $("#completed-tasks").empty();
     // Grab user tasks from firebase and add them to page.
-    database.ref(userID).on("child_added", function (snapshot) {
+    database.ref(id).on("child_added", function (snapshot) {
 
         // Create Materialize collection item
         var collectionItem = $("<p>");
         collectionItem.addClass("collection-item");
         //(Eric) add unique ID to "p" that matches db; may remove
-        collectionItem.attr("data-", userID + "/" + snapshot.key);
+        collectionItem.attr("data-", id + "/" + snapshot.key);
         var taskSpan = $("<span>");
         taskSpan.text(snapshot.val().task);
         var deleteBtn = $("<button>");
@@ -92,7 +82,7 @@ function googleLogin() {
             doneBtn.attr({
                 class: "btn-small right done",
                 id: snapshot.key,
-                "data-done": userID + "/" + snapshot.key
+                "data-done": id + "/" + snapshot.key
             });
 
             // done button click event
@@ -101,10 +91,12 @@ function googleLogin() {
                 database.ref($(this).data("done")).update({
                     status: done,
                 });
+                pushTask(userID);
+                renderTasks(userID);
             });
             // delete button click event
             $(document).on("click", ".delete", function () {
-                var targetPath = userID + "/" + snapshot.key;
+                var targetPath = id + "/" + snapshot.key;
                 console.log(targetPath);
                 database.ref(targetPath).remove();
             });
@@ -115,6 +107,22 @@ function googleLogin() {
         }
 
     });
+}
+
+// Firebase Authentication
+function googleLogin() {
+    // This tells firebase we're using Google as the authentication method. 
+    const provider = new firebase.auth.GoogleAuthProvider();
+    // This is the sign-in method we want to use (pop up method)
+    firebase.auth().signInWithPopup(provider).then(
+        result => {
+            const user = result.user
+            $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
+
+            pushTask(userID);
+            renderTasks(userID);
+        });
+
 }
 
 $(document).ready(function () {
