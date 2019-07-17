@@ -71,6 +71,7 @@ function googleLogin() {
 
         var done = "done";
 
+        // done button click event
         $(document).on("click", ".done", function () {
             database.ref($(this).data("done")).set({
                 status: done,
