@@ -18,6 +18,8 @@ var userID;
 
 // FUNCTIONS
 // =============
+
+// (Santiago) This checks if user is logged in, then runs certain tasks. 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
@@ -30,6 +32,22 @@ firebase.auth().onAuthStateChanged(function (user) {
         console.log("you need to log in");
     }
 });
+
+// Firebase Authentication - Log In With Google
+function googleLogin() {
+    // This tells firebase we're using Google as the authentication method. 
+    const provider = new firebase.auth.GoogleAuthProvider();
+    // This is the sign-in method we want to use (pop up method)
+    firebase.auth().signInWithPopup(provider).then(
+        result => {
+            const user = result.user
+            $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
+
+            pushTask(userID);
+            renderTasks(userID);
+        });
+
+}
 
 // (Santiago) This grabs the userID and adds the task to their own collection
 function pushTask(id) {
@@ -87,8 +105,6 @@ function renderTasks(id) {
                 "data-done": id + "/" + snapshot.key
             });
 
-
-
             collectionItem.append(taskSpan, deleteBtn, doneBtn);
             // Add Materialize collection item to list
             $("#toDoCollection").append(collectionItem);
@@ -115,26 +131,7 @@ $(document).on("click", ".delete", function () {
     renderTasks(userID);
 });
 
-
-
-// Firebase Authentication
-function googleLogin() {
-    // This tells firebase we're using Google as the authentication method. 
-    const provider = new firebase.auth.GoogleAuthProvider();
-    // This is the sign-in method we want to use (pop up method)
-    firebase.auth().signInWithPopup(provider).then(
-        result => {
-            const user = result.user
-            $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
-
-            pushTask(userID);
-            renderTasks(userID);
-        });
-
-}
-
 $(document).ready(function () {
-
     // Triggers modal
     $(".modal").modal();
 
