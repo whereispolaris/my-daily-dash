@@ -53,6 +53,8 @@ function googleLogin() {
         // Create Materialize collection item
         var collectionItem = $("<p>");
         collectionItem.addClass("collection-item");
+        //(Eric) add unique ID to "p" that matches db
+        collectionItem.attr("id", userID + "/" + snapshot.key)
         var taskSpan = $("<span>");
         taskSpan.text(snapshot.val().task);
         var deleteBtn = $("<button>");
@@ -73,9 +75,10 @@ function googleLogin() {
 
         // done button click event
         $(document).on("click", ".done", function () {
-            database.ref($(this).data("done")).set({
+            database.ref($(this).data("done")).update({
                 status: done,
             });
+
         });
 
 
