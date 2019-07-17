@@ -12,6 +12,13 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 console.log(firebase.auth());
 
+function removeData(user, id) {
+    event.preventDefault();
+    // fb_db.child(userID / snapshot.key).remove()
+    console.log("The user is: " + user + " and the ID is: " + id);
+    firebase.database().ref('"' + user + '/' + id + '"').remove();
+}
+
 // Firebase Authentication
 function googleLogin() {
     // This tells firebase we're using Google as the authentication method. 
@@ -41,7 +48,7 @@ function googleLogin() {
         database.ref(userID).push({
             task: task,
             status: status
-            });
+        });
         //clears the form field after user clicks Add item
         document.getElementById('toDoItem').value = '';
 
@@ -58,6 +65,8 @@ function googleLogin() {
         var deleteBtn = $("<button>");
         deleteBtn.text("Delete");
         deleteBtn.attr({
+            // NEW - Added removeData() function
+            onclick: "removeData(\'" + userID + "\',\'" + snapshot.key + "\')",
             class: "btn-small red right",
             id: snapshot.key
         });
@@ -68,11 +77,11 @@ function googleLogin() {
             id: snapshot.key
         });
 
-    $("doneBtn").on("click", function(){
-        database.ref(userID).push({
-            status: done,
-                });
-          });
+        $("doneBtn").on("click", function () {
+            database.ref(userID).push({
+                status: done,
+            });
+        });
 
 
         collectionItem.append(taskSpan, deleteBtn, doneBtn);
@@ -80,6 +89,10 @@ function googleLogin() {
         $("#toDoCollection").append(collectionItem);
     });
     // Google Auth Test End
+    const fb_db = firebase.database().ref()
+    // <button onclick=removeData() class="btn-small red right" id="-LjncI7U6Wvzo4m82nYL">Delete</button>
+
+
 }
 
 $(document).ready(function () {
