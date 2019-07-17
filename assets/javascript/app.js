@@ -8,17 +8,32 @@ var firebaseConfig = {
     appId: "1:740454389985:web:a93be9c7139cf559"
 };
 // Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 // VARIABLES
 // =============
-firebase.initializeApp(firebaseConfig);
+
 var database = firebase.database();
+var userID;
 
 // FUNCTIONS
 // =============
 
+// (Santiago) This checks if user is logged in, then runs certain tasks. 
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        // User is signed in.
+        userID = firebase.auth().currentUser.uid;
+        console.log(userID);
+        pushTask(userID);
+        renderTasks(userID); 
+    } else {
+        // No user is signed in.
+        console.log("you need to log in");
+    }
+});
 
-// Firebase Authentication
+// Firebase Authentication - Log In With Google
 function googleLogin() {
     // This tells firebase we're using Google as the authentication method. 
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -28,12 +43,14 @@ function googleLogin() {
             const user = result.user
             $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
 
-            // For the tasks not showing up right away, we might need to do something here.  
+            pushTask(userID);
+            renderTasks(userID);
         });
 
-    // Store firebase authentication method into variable
-    var userID = firebase.auth().currentUser.uid;
+}
 
+// (Santiago) This grabs the userID and adds the task to their own collection
+function pushTask(id) {
     // Add task to firebase 
     $("#add-item").on("submit", function (event) {
         // prevent the page from refreshing
@@ -44,7 +61,7 @@ function googleLogin() {
         var status = "toDo";
 
         // Pushes task into database 'collection' associated with user (userID)
-        database.ref(userID).push({
+        database.ref(id).push({
             task: task,
             status: status
         });
@@ -52,22 +69,27 @@ function googleLogin() {
         document.getElementById('toDoItem').value = '';
 
     });
+}
 
+// (Santiago) This grabs the userID and displays the tasks
+function renderTasks(id) {
+    $("#toDoCollection").empty();
+    $("#completed-tasks").empty();
     // Grab user tasks from firebase and add them to page.
-    database.ref(userID).on("child_added", function (snapshot) {
+    database.ref(id).on("child_added", function (snapshot) {
 
         // Create Materialize collection item
         var collectionItem = $("<p>");
         collectionItem.addClass("collection-item");
         //(Eric) add unique ID to "p" that matches db; may remove
-        collectionItem.attr("data-", userID + "/" + snapshot.key);
         var taskSpan = $("<span>");
         taskSpan.text(snapshot.val().task);
         var deleteBtn = $("<button>");
         deleteBtn.text("Delete");
         deleteBtn.attr({
             class: "btn-small red right delete",
-            id: snapshot.key
+            id: snapshot.key,
+            "data-delete": id + "/" + snapshot.key
         });
 
         if (snapshot.val().status === "done") {
@@ -80,21 +102,7 @@ function googleLogin() {
             doneBtn.attr({
                 class: "btn-small right done",
                 id: snapshot.key,
-                "data-done": userID + "/" + snapshot.key
-            });
-
-            // done button click event
-            $(document).on("click", ".done", function () {
-                var done = "done";
-                database.ref($(this).data("done")).update({
-                    status: done,
-                });
-            });
-            // delete button click event
-            $(document).on("click", ".delete", function () {
-                var targetPath = userID + "/" + snapshot.key;
-                console.log(targetPath);
-                database.ref(targetPath).remove();
+                "data-done": id + "/" + snapshot.key
             });
 
             collectionItem.append(taskSpan, deleteBtn, doneBtn);
@@ -105,8 +113,25 @@ function googleLogin() {
     });
 }
 
-$(document).ready(function () {
+// done button click event
+$(document).on("click", ".done", function () {
+    var done = "done";
+    database.ref($(this).data("done")).update({
+        status: done,
+    });
+    pushTask(userID);
+    renderTasks(userID);
+});
 
+// delete button click event
+$(document).on("click", ".delete", function () {
+    var targetPath = $(this).data("delete");
+    console.log(targetPath);
+    database.ref(targetPath).remove();
+    renderTasks(userID);
+});
+
+$(document).ready(function () {
     // Triggers modal
     $(".modal").modal();
 
