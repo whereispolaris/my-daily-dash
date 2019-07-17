@@ -31,6 +31,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     }
 });
 
+// (Santiago) This grabs the userID and adds the task to their own collection
 function pushTask(id) {
     // Add task to firebase 
     $("#add-item").on("submit", function (event) {
@@ -52,6 +53,7 @@ function pushTask(id) {
     });
 }
 
+// (Santiago) This grabs the userID and displays the tasks
 function renderTasks(id) {
     $("#toDoCollection").empty();
     $("#completed-tasks").empty();
@@ -62,14 +64,14 @@ function renderTasks(id) {
         var collectionItem = $("<p>");
         collectionItem.addClass("collection-item");
         //(Eric) add unique ID to "p" that matches db; may remove
-        collectionItem.attr("data-", id + "/" + snapshot.key);
         var taskSpan = $("<span>");
         taskSpan.text(snapshot.val().task);
         var deleteBtn = $("<button>");
         deleteBtn.text("Delete");
         deleteBtn.attr({
             class: "btn-small red right delete",
-            id: snapshot.key
+            id: snapshot.key,
+            "data-delete": id + "/" + snapshot.key
         });
 
         if (snapshot.val().status === "done") {
@@ -85,21 +87,7 @@ function renderTasks(id) {
                 "data-done": id + "/" + snapshot.key
             });
 
-            // done button click event
-            $(document).on("click", ".done", function () {
-                var done = "done";
-                database.ref($(this).data("done")).update({
-                    status: done,
-                });
-                pushTask(userID);
-                renderTasks(userID);
-            });
-            // delete button click event
-            $(document).on("click", ".delete", function () {
-                var targetPath = id + "/" + snapshot.key;
-                console.log(targetPath);
-                database.ref(targetPath).remove();
-            });
+
 
             collectionItem.append(taskSpan, deleteBtn, doneBtn);
             // Add Materialize collection item to list
@@ -108,6 +96,26 @@ function renderTasks(id) {
 
     });
 }
+
+// done button click event
+$(document).on("click", ".done", function () {
+    var done = "done";
+    database.ref($(this).data("done")).update({
+        status: done,
+    });
+    pushTask(userID);
+    renderTasks(userID);
+});
+
+// delete button click event
+$(document).on("click", ".delete", function () {
+    var targetPath = $(this).data("delete");
+    console.log(targetPath);
+    database.ref(targetPath).remove();
+    renderTasks(userID);
+});
+
+
 
 // Firebase Authentication
 function googleLogin() {
