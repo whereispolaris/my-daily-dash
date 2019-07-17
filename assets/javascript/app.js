@@ -66,7 +66,7 @@ function googleLogin() {
         var deleteBtn = $("<button>");
         deleteBtn.text("Delete");
         deleteBtn.attr({
-            class: "btn-small red right",
+            class: "btn-small red right delete",
             id: snapshot.key
         });
 
@@ -90,6 +90,13 @@ function googleLogin() {
                     status: done,
                 });
             });
+            // delete button click event
+            $(document).on("click", ".delete", function () {
+                var targetPath = userID + "/" + snapshot.key;
+                console.log(targetPath);
+                database.ref(targetPath).remove();
+            });
+
             collectionItem.append(taskSpan, deleteBtn, doneBtn);
             // Add Materialize collection item to list
             $("#toDoCollection").append(collectionItem);
