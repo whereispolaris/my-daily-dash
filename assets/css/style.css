@@ -58,3 +58,9 @@
     margin: 15px 5px 5px 5px;
    }
 /*END styles for congratulations message */
+
+
+#completed-header {
+    text-align: center;
+    font-size: 16pt;
+}
