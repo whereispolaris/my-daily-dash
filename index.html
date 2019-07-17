@@ -11,8 +11,8 @@
 
     <!--Jquery CDN-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>  
-        <!---jquery framework for congratulations message-->
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!---jquery framework for congratulations message-->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -22,13 +22,13 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <!--Materialize CDN-->
-        <!--Icons and fonts-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Icons and fonts-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-        <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <!-- Firebase-->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
@@ -55,7 +55,8 @@
                         <div class="col s12 m12">
                             <div class="card-content white-text" id="opening-message-content">
                                 <p class="welcome-message" id="line-one">Welcome to Your Daily Dashboard!</p>
-                                <p class="welcome-subHeader">Login with Google then start adding your tasks for the day.</p>
+                                <p class="welcome-subHeader">Login with Google then start adding your tasks for the day.
+                                </p>
                                 <p id="quote-of-the-day"></p>
                                 <p id="ron-swanson">-Ron Swanson</p>
                             </div>
@@ -117,16 +118,16 @@
                 </div>
             </div>
         </div>
-        
+
         <button onclick="googleLogin()" class="btn red">Log in with Google</a>
 
 
-      <!---Congratulations message: will include Text message, API string from bored api, triggered when all items are checked -->  
-      <div id="dialog" title="Congratulations!" id="congratHeader">
-        <div class="congratMsg">You've completed all of your tasks for today!</div>
-        <div class="congratMsg">Looking for something else to do?</div>
-        <div id="apiMsg"></div>
-      </div>
+            <!---Congratulations message: will include Text message, API string from bored api, triggered when all items are checked -->
+            <div id="dialog" title="Congratulations!" id="congratHeader">
+                <div class="congratMsg">You've completed all of your tasks for today!</div>
+                <div class="congratMsg">Looking for something else to do?</div>
+                <div id="apiMsg"></div>
+            </div>
 
     </div>
     <!-- CAPACITY / POINTS COMPLETED -->
@@ -142,10 +143,10 @@
                 <div class="input-field col s12">
                     <input id="toDoItem" type="text" class="validate" required>
                     <label for="toDoItem">To Do Item</label>
-    <!--placeholder for form validation <span class="helper-text"></span>--> 
+                    <!--placeholder for form validation <span class="helper-text"></span>-->
                 </div>
                 <!-- THIS BUTTON Submits a to do item -->
-                <button type="submit" id="add-item" class="btn modal-close" >Add Task</a>
+                <button type="submit" id="add-item" class="btn modal-close">Add Task</a>
             </form>
         </div>
     </div>

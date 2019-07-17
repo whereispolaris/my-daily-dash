@@ -41,7 +41,7 @@ function googleLogin() {
         database.ref(userID).push({
             task: task,
             status: status
-            });
+        });
         //clears the form field after user clicks Add item
         document.getElementById('toDoItem').value = '';
 
@@ -64,15 +64,19 @@ function googleLogin() {
         var doneBtn = $("<button>");
         doneBtn.text("Done");
         doneBtn.attr({
-            class: "btn-small right",
-            id: snapshot.key
+            class: "btn-small right done",
+            id: snapshot.key,
+            "data-done": userID + "/" + snapshot.key
         });
 
-    $("doneBtn").on("click", function(){
-        database.ref(userID).push({
-            status: done,
-                });
-          });
+        var done = "done";
+
+        // done button click event
+        $(document).on("click", ".done", function () {
+            database.ref($(this).data("done")).set({
+                status: done,
+            });
+        });
 
 
         collectionItem.append(taskSpan, deleteBtn, doneBtn);
