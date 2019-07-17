@@ -68,8 +68,8 @@ function googleLogin() {
         });
 
         if (snapshot.val().status === "done") {
-
-            $("#completed-tasks").append(taskSpan, deleteBtn);
+            collectionItem.append(taskSpan, deleteBtn);
+            $("#completed-tasks").append(collectionItem);
         } else {
 
             var doneBtn = $("<button>");
