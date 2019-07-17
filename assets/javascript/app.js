@@ -8,9 +8,15 @@ var firebaseConfig = {
     appId: "1:740454389985:web:a93be9c7139cf559"
 };
 // Initialize Firebase
+
+// VARIABLES
+// =============
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
-console.log(firebase.auth());
+
+// FUNCTIONS
+// =============
+
 
 // Firebase Authentication
 function googleLogin() {
@@ -50,9 +56,6 @@ function googleLogin() {
     // Grab user tasks from firebase and add them to page.
     database.ref(userID).on("child_added", function (snapshot) {
 
-
-
-        console.log("snapshot.key: " + snapshot.key);
         // Create Materialize collection item
         var collectionItem = $("<p>");
         collectionItem.addClass("collection-item");
@@ -78,13 +81,11 @@ function googleLogin() {
                 class: "btn-small right done",
                 id: snapshot.key,
                 "data-done": userID + "/" + snapshot.key
-
             });
-
-            var done = "done";
 
             // done button click event
             $(document).on("click", ".done", function () {
+                var done = "done";
                 database.ref($(this).data("done")).update({
                     status: done,
                 });
@@ -94,9 +95,7 @@ function googleLogin() {
             $("#toDoCollection").append(collectionItem);
         }
 
-
     });
-    // Google Auth Test End
 }
 
 $(document).ready(function () {
@@ -121,11 +120,6 @@ $(document).ready(function () {
         // Store all of the retrieved data inside of an object called response
         .then(function (response) {
 
-            //Log the queryURLInspire
-            console.log(queryURLInspire);
-
-            // Log the quote
-            console.log(response[0]);
             // Transfer content to HTML
             $("#quote-of-the-day").text('"' + response[0] + '"');
         });
