@@ -26,7 +26,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         userID = firebase.auth().currentUser.uid;
         console.log(userID);
         pushTask(userID);
-        renderTasks(userID); 
+        renderTasks(userID);
     } else {
         // No user is signed in.
         console.log("you need to log in");
@@ -84,10 +84,10 @@ function renderTasks(id) {
         //(Eric) add unique ID to "p" that matches db; may remove
         var taskSpan = $("<span>");
         taskSpan.text(snapshot.val().task);
-        var deleteBtn = $("<button>");
-        deleteBtn.text("Delete");
+        var deleteBtn = $("<a>");
+        deleteBtn.text("delete");
         deleteBtn.attr({
-            class: "btn-small red right delete",
+            class: "material-icons right delete",
             id: snapshot.key,
             "data-delete": id + "/" + snapshot.key
         });
@@ -97,10 +97,10 @@ function renderTasks(id) {
             $("#completed-tasks").append(collectionItem);
         } else {
 
-            var doneBtn = $("<button>");
-            doneBtn.text("Done");
+            var doneBtn = $("<a>");
+            doneBtn.text("check");
             doneBtn.attr({
-                class: "btn-small right done",
+                class: "material-icons right done",
                 id: snapshot.key,
                 "data-done": id + "/" + snapshot.key
             });

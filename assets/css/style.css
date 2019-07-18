@@ -30,6 +30,15 @@
     font-size: larger;
 }
 
+.done{
+    color: teal;
+    cursor: pointer;
+}
+
+.delete{
+    color: red;
+    cursor: pointer;
+}
 .welcome-message {
     text-align: center;
     font-size: 3vw;
@@ -39,6 +48,13 @@
     font-size: 24px;
 }
 
+#completed-head {
+    text-align: center;
+}
+
+.min-height {
+    min-height: 200px;
+}
 
 #line-one {
     padding-bottom: 2%;
