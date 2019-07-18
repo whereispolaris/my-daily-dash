@@ -15,9 +15,23 @@ firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 var userID;
-
+toDoNum = 0;
+// This displays the Congrats Message
+var queryURL = "https://www.boredapi.com/api/activity";
 // FUNCTIONS
 // =============
+//Congrats message function
+function congratsMessage() {
+    $("#dialog").dialog();
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        var boredIdea = response.activity;
+        apiMsg.append(boredIdea + ".");
+    });
+};
+
 
 // (Santiago) This checks if user is logged in, then runs certain tasks. 
 firebase.auth().onAuthStateChanged(function (user) {
@@ -65,6 +79,9 @@ function pushTask(id) {
             task: task,
             status: status
         });
+
+        //Increments toDoNum:
+        toDoNum++;
         //clears the form field after user clicks Add item
         document.getElementById('toDoItem').value = '';
 
@@ -120,6 +137,12 @@ $(document).on("click", ".done", function () {
         status: done,
     });
     pushTask(userID);
+    //decrement toDo counter:
+    toDoNum--;
+    //check to see if there are 0 tasks remaining: toDoNum
+    if (toDoNum === 0) {
+        congratsMessage();
+    }
     renderTasks(userID);
 });
 
@@ -156,26 +179,3 @@ $(document).ready(function () {
             $("#quote-of-the-day").text('"' + response[0] + '"');
         });
 });
-
-//If all tasks are checked complete, then run dialog function
-// document.getElementById("myBtn").addEventListener("click", function() {
- // alert("Hello World!");
-// });
-
-        //This displays the Congratulations message
-/*   var queryURL = "https://www.boredapi.com/api/activity/"
-
-   $(function() {
-       $( "#dialog" ).dialog();
-
-       $.ajax({
-           url: queryURL,
-           method: "GET"
-           }).then(function(response) {
-
-           var boredIdea = response.activity;
-
-           apiMsg.append(boredIdea +".");
-       });
-       }); */
-   // });
