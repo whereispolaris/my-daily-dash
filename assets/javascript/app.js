@@ -15,7 +15,7 @@ firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 var userID;
-toDoNum = 0;
+var toDoNum = 0;
 // This displays the Congrats Message
 var queryURL = "https://www.boredapi.com/api/activity";
 // FUNCTIONS
