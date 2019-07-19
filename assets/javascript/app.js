@@ -144,6 +144,7 @@ $(document).on("click", ".done", function () {
         congratsMessage();
     }
     renderTasks(userID);
+    location.reload();
 });
 
 // delete button click event
@@ -152,6 +153,7 @@ $(document).on("click", ".delete", function () {
     console.log(targetPath);
     database.ref(targetPath).remove();
     renderTasks(userID);
+    location.reload();
 });
 
 $(document).ready(function () {
