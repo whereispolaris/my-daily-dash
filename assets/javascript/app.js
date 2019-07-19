@@ -20,6 +20,10 @@ var toDoNum = 0;
 var queryURL = "https://www.boredapi.com/api/activity";
 // FUNCTIONS
 // =============
+
+$("#taskBtn").hide();
+$("#googleBtn").hide();
+
 //Congrats message function
 function congratsMessage() {
     $("#dialog").dialog();
@@ -39,11 +43,14 @@ firebase.auth().onAuthStateChanged(function (user) {
         // User is signed in.
         userID = firebase.auth().currentUser.uid;
         console.log(userID);
+        $("#taskBtn").show();
+        
         // pushTask(userID);
         renderTasks(userID);
     } else {
         // No user is signed in.
         console.log("you need to log in");
+        $("#googleBtn").show();
     }
 });
 
@@ -57,7 +64,7 @@ function googleLogin() {
             const user = result.user
             $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
 
-            pushTask(userID);
+            // pushTask(userID);
             renderTasks(userID);
         });
 
