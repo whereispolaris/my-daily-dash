@@ -39,7 +39,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         // User is signed in.
         userID = firebase.auth().currentUser.uid;
         console.log(userID);
-        pushTask(userID);
+        // pushTask(userID);
         renderTasks(userID);
     } else {
         // No user is signed in.
@@ -64,35 +64,37 @@ function googleLogin() {
 }
 
 // (Santiago) This grabs the userID and adds the task to their own collection
-function pushTask(id) {
-    // Add task to firebase 
-    $("#add-item").on("submit", function (event) {
-        // prevent the page from refreshing
-        event.preventDefault();
+//function pushTask(id) {
+// Add task to firebase 
+$("#submit-task").on("click", function (event) {
+    // prevent the page from refreshing
+    event.preventDefault();
 
-        // Gets the value from the task input
-        var task = $("#toDoItem").val().trim();
-        var status = "toDo";
+    // Gets the value from the task input
+    var task = $("#toDoItem").val().trim();
+    var status = "toDo";
 
-        // Pushes task into database 'collection' associated with user (userID)
-        database.ref(id).push({
-            task: task,
-            status: status
-        });
-
-        //Increments toDoNum:
-        toDoNum++;
-        //clears the form field after user clicks Add item
-        document.getElementById('toDoItem').value = '';
-
+    // Pushes task into database 'collection' associated with user (userID)
+    database.ref(userID).push({
+        task: task,
+        status: status
     });
-}
+
+    //Increments toDoNum:
+    toDoNum++;
+    //clears the form field after user clicks Add item
+    document.getElementById('toDoItem').value = '';
+
+});
+//}
 
 // (Santiago) This grabs the userID and displays the tasks
-function renderTasks(id) {
+function emptyTasks() {
     $("#toDoCollection").empty();
     $("#completed-tasks").empty();
     // Grab user tasks from firebase and add them to page.
+}
+function renderTasks(id) {
     database.ref(id).on("child_added", function (snapshot) {
 
         // Create Materialize collection item
@@ -128,23 +130,28 @@ function renderTasks(id) {
         }
 
     });
-}
 
+}
 // done button click event
 $(document).on("click", ".done", function () {
     var done = "done";
     database.ref($(this).data("done")).update({
         status: done,
     });
-    pushTask(userID);
+    //pushTask(userID);
     //decrement toDo counter:
     toDoNum--;
+
+
     //check to see if there are 0 tasks remaining: toDoNum
     if (toDoNum === 0) {
         congratsMessage();
+    } else {
+        //location.reload();
     }
+    emptyTasks();
     renderTasks(userID);
-    location.reload();
+
 });
 
 // delete button click event
@@ -152,8 +159,9 @@ $(document).on("click", ".delete", function () {
     var targetPath = $(this).data("delete");
     console.log(targetPath);
     database.ref(targetPath).remove();
+    emptyTasks();
     renderTasks(userID);
-    location.reload();
+    // location.reload();
 });
 
 $(document).ready(function () {
