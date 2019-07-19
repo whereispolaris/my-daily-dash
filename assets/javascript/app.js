@@ -44,7 +44,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         userID = firebase.auth().currentUser.uid;
         console.log(userID);
         $("#taskBtn").show();
-        
+
         // pushTask(userID);
         renderTasks(userID);
     } else {
@@ -135,7 +135,8 @@ function renderTasks(id) {
             // Add Materialize collection item to list
             $("#toDoCollection").append(collectionItem);
         }
-
+        toDoNum = $("#toDoCollection p.collection-item").length;
+        console.log(toDoNum);
     });
 
 }
