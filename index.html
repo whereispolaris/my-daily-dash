@@ -17,9 +17,12 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <!--stylesheets-->
-    <link rel="stylesheet" href="assets/css/reset.css">
+    <!--stylesheets
+    <link rel="stylesheet" href="assets/css/reset.css">-->
     <link rel="stylesheet" href="assets/css/style.css">
+   
+    <!--google font for the congrats message-->
+    <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
 
     <!--Materialize CDN-->
     <!--Icons and fonts-->
@@ -101,8 +104,8 @@
 
 
             <!---Congratulations message: will include Text message, API string from bored api, triggered when all items are checked -->
-            <div id="dialog" title="Congratulations!" id="congratHeader">
-                <div class="congratMsg">You've completed all of your tasks for today!</div>
+            <div id="dialog" title="Congratulations!" class="center-align">
+                <div id="congratHeader">You've completed all of your tasks for today!</div>
                 <div class="congratMsg">Looking for something else to do?</div>
                 <div id="apiMsg"></div>
             </div>

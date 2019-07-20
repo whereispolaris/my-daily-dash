@@ -61,17 +61,45 @@
 }
 
 /*START styles for congratulations message */
+
+.ui-dialog {
+    width: 45% !important;
+    height: 35% !important;
+    background-color: #00897b !important;
+    font-size: 18pt;
+    border: 5px solid #ee6e73 !important;
+}
+ui-dialog-titlebar {
+    background-color: white !important;
+} 
+ui-dialog-title {
+    align-content: center !important;
+}
+
+ui-dialog-content {
+    color: white !important;
+}
+
+
+
+
 #congratHeader {
-    width: 250px;
-    height: 250px;
+font-size: 32px !important;
+margin: 0px 5px 5px 15px !important;
+color: white !important;
 }
 
 .congratMsg {
- margin: 15px 5px 5px 5px;
+ margin: 35px 5px 5px 5px;
+ color: white !important;
+ font-size: 24pt;
 }
 
 #apiMsg {
     margin: 15px 5px 5px 5px;
+    color: white !important;
+    font-family: 'Kanit', sans-serif;
+    font-size: 28pt;
    }
 /*END styles for congratulations message */
 
