@@ -63,8 +63,8 @@
 /*START styles for congratulations message */
 
 .ui-dialog {
-    width: 45% !important;
-    height: 35% !important;
+    width: auto !important;
+    height: auto !important;
     background-color: #00897b !important;
     font-size: 18pt;
     border: 5px solid #ee6e73 !important;
@@ -79,9 +79,6 @@ ui-dialog-title {
 ui-dialog-content {
     color: white !important;
 }
-
-
-
 
 #congratHeader {
 font-size: 32px !important;

@@ -46,6 +46,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         $("#taskBtn").show();
 
         // pushTask(userID);
+        emptyTasks();
         renderTasks(userID);
     } else {
         // No user is signed in.
