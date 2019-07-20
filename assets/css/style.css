@@ -30,6 +30,10 @@
     font-size: larger;
 }
 
+#taskBtn {
+    margin-top: 20px;
+}
+
 .done{
     color: teal;
     cursor: pointer;
@@ -115,4 +119,8 @@ color: white !important;
     margin-left: 15px;
     border: 1px solid red;
     border-radius: 50%;
+}
+
+#googleBtn {
+    width: 25%;
 }
