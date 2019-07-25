@@ -45,11 +45,11 @@ firebase.auth().onAuthStateChanged(function (user) {
         console.log(userID);
         $("#taskBtn").show();
 
-        // pushTask(userID);
         renderTasks(userID);
+
     } else {
         // No user is signed in.
-        console.log("you need to log in");
+        console.log("Log in to add tasks.");
         $("#googleBtn").show();
     }
 });
@@ -64,7 +64,7 @@ function googleLogin() {
             const user = result.user
             $("#opening-message-content").prepend("Hello, " + firebase.auth().currentUser.displayName + "!");
 
-            // pushTask(userID);
+            emptyTasks();
             renderTasks(userID);
         });
 
@@ -91,6 +91,9 @@ $("#submit-task").on("click", function (event) {
     toDoNum++;
     //clears the form field after user clicks Add item
     document.getElementById('toDoItem').value = '';
+
+    emptyTasks();
+    renderTasks(userID);
 
 });
 //}
@@ -121,7 +124,9 @@ function renderTasks(id) {
         if (snapshot.val().status === "done") {
             collectionItem.append(taskSpan, deleteBtn);
             $("#completed-tasks").append(collectionItem);
-        } else {
+        } 
+        
+        else if (snapshot.val().status === "toDo"){
 
             var doneBtn = $("<a>");
             doneBtn.text("check");
@@ -137,6 +142,7 @@ function renderTasks(id) {
         }
         toDoNum = $("#toDoCollection p.collection-item").length;
         console.log(toDoNum);
+
     });
 
 }
